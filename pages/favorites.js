@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Image from "next/image";
 
 const Favorites = () => {
   const [favorites, setFavorites] = React.useState([]);
@@ -48,7 +49,12 @@ const Favorites = () => {
               key={index}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img src={favorite.image} alt={favorite.name} />
+              <Image
+                src={favorite.image}
+                alt={favorite.name}
+                width={1024}
+                height={1024}
+              />
               <div className="p-4 text-center">
                 <h2 className="text-lg font-bold mb-2">{favorite.name}</h2>
                 <button

@@ -3,7 +3,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: [],
+    domains: ["i.nfte.ai", "storage.nfte.ai"],
     loader: "default",
   },
 };
