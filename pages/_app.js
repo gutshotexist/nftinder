@@ -2,7 +2,6 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { configureChains, createClient } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import "../styles/globals.css";
 import { bscTestnet, bsc } from "@wagmi/core/chains";
 import { WagmiConfig } from "wagmi";
 import "tailwindcss/tailwind.css";
