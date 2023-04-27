@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouter } from "next/router";
 import Image from "next/image";
 
 const Favorites = () => {
   const [favorites, setFavorites] = React.useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof localStorage !== "undefined") {
@@ -35,12 +36,14 @@ const Favorites = () => {
           <p className="text-gray-500 mb-4">
             You haven&apos;t added any favorites yet.
           </p>
-          <span
-            to="/"
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
             className="px-6 py-2 bg-red-600 text-white rounded-full uppercase tracking-wide font-semibold transition duration-300 hover:bg-red-700"
           >
             Browse
-          </span>
+          </button>
         </div>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
