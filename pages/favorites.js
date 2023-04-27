@@ -32,7 +32,7 @@ const Favorites = () => {
       {favorites.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-48">
           <p className="text-gray-500 mb-4">
-            You haven't added any favorites yet.
+            You haven&apos;t added any favorites yet.
           </p>
           <span
             to="/"
