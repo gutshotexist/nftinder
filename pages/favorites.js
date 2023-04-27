@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Favorites = () => {
-  const [favorites, setFavorites] = React.useState(
-    JSON.parse(localStorage.getItem("favorites")) || []
-  );
+  const [favorites, setFavorites] = React.useState([]);
+
+  useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      try {
+        const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+        if (storedFavorites) {
+          setFavorites(storedFavorites);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      console.log("Local storage is not supported.");
+    }
+  }, []);
 
   const removeFromFavorites = (index) => {
-    const updatedFavorites = [...favorites];
-    updatedFavorites.splice(index, 1);
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    const newFavorites = [...favorites];
+    newFavorites.splice(index, 1);
+    setFavorites(newFavorites);
+    localStorage.setItem("favorites", JSON.stringify(newFavorites));
   };
 
   return (
@@ -21,12 +34,12 @@ const Favorites = () => {
           <p className="text-gray-500 mb-4">
             You haven't added any favorites yet.
           </p>
-          <a
-            href="/"
+          <span
+            to="/"
             className="px-6 py-2 bg-red-600 text-white rounded-full uppercase tracking-wide font-semibold transition duration-300 hover:bg-red-700"
           >
             Browse
-          </a>
+          </span>
         </div>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
