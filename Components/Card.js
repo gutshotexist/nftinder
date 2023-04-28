@@ -43,7 +43,6 @@ const Card = (props) => {
         return newFavorites;
       });
     } else {
-      // user not in favorites, add them
       props.setFavorites((prevFavorites) => {
         const newFavorites = [...prevFavorites, props.user];
         localStorage.setItem("favorites", JSON.stringify(newFavorites));
@@ -59,6 +58,7 @@ const Card = (props) => {
     left: { x: -500, opacity: 0, transition: { duration: 0.5 } },
     right: { x: 500, opacity: 0, transition: { duration: 0.5 } },
   };
+
   const imageSrc = Array.isArray(props.image) ? props.image[0] : props.image;
 
   return (
@@ -82,11 +82,13 @@ const Card = (props) => {
         animate={{ scale: 1, transition: { delay: 0.25, duration: 0.5 } }}
         exit={{ scale: 0, transition: { duration: 0.5 } }}
       />
+
       <div className="flex flex-col justify-between flex-1 p-6">
         <div className="flex flex-col">
           <h2 className="text-gray-900 font-medium text-lg">
             {props.name} — {props.price}
           </h2>
+
           <div className="flex flex-wrap items-center mt-2">
             <div className="text-gray-700 font-medium">{props.volume}</div>
             <div className="mx-2">|</div>
@@ -95,33 +97,53 @@ const Card = (props) => {
             </div>
           </div>
         </div>
+
         <div className="flex justify-between mt-4">
           <button
             id="prev-button"
-            className="px-4 py-2 font-semibold text-white bg-gray-900 rounded-full hover:bg-gray-800"
+            className="px-4 py-2 text-gray-800 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300 ease-in-out"
             onClick={handlePrevClick}
           >
-            &#8634;
+            &#8634; Previous
           </button>
+
           <button
             id="hate-button"
-            className="px-4 py-2 font-semibold text-white bg-gray-900 rounded-full hover:bg-gray-800"
+            className="px-4 py-2 text-gray-800 bg-red-500 rounded-full hover:bg-red-600 transition-colors duration-300 ease-in-out"
             onClick={handleNopeClick}
           >
-            &#128473;
+            &#128473; Nope
           </button>
+
           <button
             id="favorite-button"
-            className="px-4 py-2 font-semibold text-white bg-gray-900 rounded-full hover:bg-gray-800"
-            style={{ color: "white", backgroundColor: "black" }}
+            className={`px-4 py-2 text-gray-800 bg-${
+              props.favorites.some(
+                (favorite) => favorite.name === props.user.name
+              )
+                ? "yellow-400"
+                : "gray-200"
+            } rounded-full hover:bg-${
+              props.favorites.some(
+                (favorite) => favorite.name === props.user.name
+              )
+                ? "yellow-500"
+                : "gray-300"
+            } transition-colors duration-300 ease-in-out`}
             onClick={handleFavoriteClick}
           >
-            <span style={{ fontSize: "1.5em" }}>&#9733;</span>
+            <span style={{ fontSize: "1.5em" }}>
+              {props.favorites.some(
+                (favorite) => favorite.name === props.user.name
+              )
+                ? "★ "
+                : "☆ "}
+            </span>
           </button>
+
           <motion.button
             id="love-button"
-            className="px-4 py-2 font-semibold text-white bg-gray-900 rounded-full hover:bg-gray-800"
-            style={{ color: "white", backgroundColor: "black" }}
+            className="px-4 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition-colors duration-300 ease-in-out"
             onClick={handleLikeClick}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
