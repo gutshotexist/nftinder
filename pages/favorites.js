@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 const Favorites = () => {
@@ -29,11 +29,18 @@ const Favorites = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 h-screen flex flex-col items-center justify-center">
+      <nav className="bg-white-100 px-4 py-2 flex justify-between items-center fixed top-0 left-0 right-0 w-full z-10">
+        <div className="logo">
+          <button onClick={() => router.push("/")}>
+            <Image src="/logo.png" alt="Logo" width={300} height={50} />
+          </button>
+        </div>
+      </nav>
       <h1 className="text-3xl font-bold mb-4">Favorites Page</h1>
       {favorites.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-48">
-          <p className="text-gray-500 mb-4">
+        <div className="flex flex-col items-center justify-center flex-grow">
+          <p className="text-gray-500 mb-4 text-center">
             You haven&apos;t added any favorites yet.
           </p>
           <button
