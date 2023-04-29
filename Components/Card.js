@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const Card = (props) => {
   const [isAnimating, setIsAnimating] = React.useState(false);
   const [animationDirection, setAnimationDirection] = React.useState(null);
+  const [liked, setLiked] = React.useState(false);
 
   const handleNopeClick = () => {
     setIsAnimating(true);
@@ -18,6 +19,8 @@ const Card = (props) => {
   const handleLikeClick = () => {
     setIsAnimating(true);
     setAnimationDirection("right");
+    setLiked(!liked);
+
     setTimeout(() => {
       props.onLikeClick();
       setIsAnimating(false);
@@ -99,38 +102,38 @@ const Card = (props) => {
         </div>
 
         <div className="flex justify-between mt-4">
-          <button
+          <motion.button
             id="prev-button"
             className="px-4 py-2 text-gray-800 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300 ease-in-out"
             onClick={handlePrevClick}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             &#8634; Previous
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             id="hate-button"
-            className="px-4 py-2 text-gray-800 bg-red-500 rounded-full hover:bg-red-600 transition-colors duration-300 ease-in-out"
+            className="px-4 py-2 text-gray-800 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300 ease-in-out"
             onClick={handleNopeClick}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             &#128473; Nope
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             id="favorite-button"
-            className={`px-4 py-2 text-gray-800 bg-${
+            className={`px-4 py-2 text-gray-800 ${
               props.favorites.some(
                 (favorite) => favorite.name === props.user.name
               )
-                ? "yellow-400"
-                : "gray-200"
-            } rounded-full hover:bg-${
-              props.favorites.some(
-                (favorite) => favorite.name === props.user.name
-              )
-                ? "yellow-500"
-                : "gray-300"
-            } transition-colors duration-300 ease-in-out`}
+                ? "bg-gray-200 hover:bg-gray-300"
+                : "bg-gray-200 hover:bg-gray-300"
+            } rounded-full transition-colors duration-300 ease-in-out`}
             onClick={handleFavoriteClick}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             <span style={{ fontSize: "1.5em" }}>
               {props.favorites.some(
@@ -139,16 +142,20 @@ const Card = (props) => {
                 ? "★ "
                 : "☆ "}
             </span>
-          </button>
+          </motion.button>
 
           <motion.button
             id="love-button"
-            className="px-4 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition-colors duration-300 ease-in-out"
+            className="px-4 py-2 text-white bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300 ease-in-out"
             onClick={handleLikeClick}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <span style={{ fontSize: "1.5em" }}>&#9825;</span>
+            <span
+              style={{ fontSize: "1.5em", color: liked ? "black" : "black" }}
+            >
+              {liked ? "\u2665" : "\u2661"}
+            </span>
           </motion.button>
         </div>
       </div>
