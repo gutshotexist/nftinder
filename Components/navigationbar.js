@@ -17,7 +17,14 @@ const Navbar = () => {
     <div className="bg-white-100 px-4 py-2 flex justify-between items-center fixed top-0 left-0 right-0">
       <div className="logo">
         <Link href="/">
-          <Image src="/logo.png" alt="Logo" width={300} height={50} />
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={300}
+            height={50}
+            style={{ width: "auto", height: "auto" }}
+            priority
+          />
         </Link>
       </div>
 
