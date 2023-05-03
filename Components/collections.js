@@ -1,4 +1,4 @@
-export const users = [
+export const collections = [
   {
     name: "ESG Panda",
     price: "0.359",

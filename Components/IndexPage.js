@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
-import { users } from "./users";
+import { collections } from "./collections";
 
 const IndexPage = () => {
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    setCurrentUserIndex(Math.floor(Math.random() * users.length));
+    setCurrentUserIndex(Math.floor(Math.random() * collections.length));
   }, []);
 
   const handleNopeClick = () => {
-    const nextIndex = (currentUserIndex + 1) % users.length;
+    const nextIndex = (currentUserIndex + 1) % collections.length;
     setCurrentUserIndex(nextIndex);
   };
 
   const handleLikeClick = () => {
-    const nextIndex = (currentUserIndex + 1) % users.length;
+    const nextIndex = (currentUserIndex + 1) % collections.length;
     setCurrentUserIndex(nextIndex);
   };
 
   const handlePrevClick = () => {
-    const previousIndex = (currentUserIndex - 1 + users.length) % users.length;
+    const previousIndex =
+      (currentUserIndex - 1 + collections.length) % collections.length;
     setCurrentUserIndex(previousIndex);
   };
 
   const { name, price, volume, collectionName, image } =
-    users[currentUserIndex];
+    collections[currentUserIndex];
   const urlLink = `https://element.market/collections/${collectionName}`;
 
   return (
@@ -42,7 +43,7 @@ const IndexPage = () => {
           onPrevClick={handlePrevClick}
           onNopeClick={handleNopeClick}
           onLikeClick={handleLikeClick}
-          user={users[currentUserIndex]}
+          collection={collections[currentUserIndex]}
           favorites={favorites}
           setFavorites={setFavorites}
         />

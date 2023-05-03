@@ -81,7 +81,7 @@ const Favorites = () => {
                   <h2 className="text-lg font-bold mb-2">{favorite.name}</h2>
                   <button
                     onClick={() => removeFromFavorites(index)}
-                    className="inline-block ml-4 mr-12 px-8 py-3 bg-red-600 text-white rounded-full text-xs uppercase tracking-wide font-semibold transition duration-300 hover:bg-red-700"
+                    className="inline-block ml-4 mr-12 px-8 py-3 bg-blue-500 text-white rounded-full text-xs uppercase tracking-wide font-semibold transition duration-300 hover:bg-blue-600"
                   >
                     Remove
                   </button>

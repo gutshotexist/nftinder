@@ -34,7 +34,7 @@ const Card = (props) => {
 
   const handleFavoriteClick = () => {
     const index = props.favorites.findIndex(
-      (favorite) => favorite.name === props.user.name
+      (favorite) => favorite.name === props.collection.name
     );
 
     if (index > -1) {
@@ -47,7 +47,7 @@ const Card = (props) => {
       });
     } else {
       props.setFavorites((prevFavorites) => {
-        const newFavorites = [...prevFavorites, props.user];
+        const newFavorites = [...prevFavorites, props.collection];
         localStorage.setItem("favorites", JSON.stringify(newFavorites));
         console.log("Favorites:", newFavorites);
         return newFavorites;
@@ -126,7 +126,7 @@ const Card = (props) => {
             id="favorite-button"
             className={`px-4 py-2 text-gray-800 ${
               props.favorites.some(
-                (favorite) => favorite.name === props.user.name
+                (favorite) => favorite.name === props.collection.name
               )
                 ? "bg-gray-200 hover:bg-gray-300"
                 : "bg-gray-200 hover:bg-gray-300"
@@ -137,7 +137,7 @@ const Card = (props) => {
           >
             <span style={{ fontSize: "1.5em" }}>
               {props.favorites.some(
-                (favorite) => favorite.name === props.user.name
+                (favorite) => favorite.name === props.collection.name
               )
                 ? "★ "
                 : "☆ "}
