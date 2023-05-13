@@ -119,7 +119,7 @@ const Card = (props) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            &#128473; Nope
+            🚫 Nope
           </motion.button>
 
           <motion.button

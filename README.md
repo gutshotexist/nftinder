@@ -13,7 +13,7 @@ NFTinder is a project that helps users discover and save their favorite NFTs. It
 
 1. Clone the repository: `git clone https://github.com/gutshotexist/nftinder.git`
 2. Install dependencies: `npm install`
-3. Run the app: `npm start`
+3. Run the app: `npm run build` && `npm start`
 
 ## Usage
 
