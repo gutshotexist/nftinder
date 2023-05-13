@@ -9,11 +9,11 @@ export const collections = [
   },
   {
     name: "Yuliverse NFT",
-    price: "0,11",
-    volume: "3,993",
+    price: "0,12",
+    volume: "5,705",
     collectionName: "yuliversenft",
     image:
-      "https://storage.nfte.ai/nft/img/bsc/0x38/5565412240811531137_7534176.webp",
+      "https://i.nfte.ai/ia/l201/62976/6684378745783283820_1901292868.avif",
   },
   {
     name: "Origines Citizen 82e49d",
@@ -25,9 +25,9 @@ export const collections = [
   },
   {
     name: "Radio Caca",
-    price: "0.0007",
+    price: "0.0004",
     volume: "30",
     collectionName: "Radio-Caca",
-    image: "https://storage.nfte.ai/nft/img/bsc/0x38/7013187559098604490.png",
+    image: "https://i.nfte.ai/ia/m201/12718/7013187559098604490.avif",
   },
 ];
