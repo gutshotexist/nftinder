@@ -2,6 +2,9 @@
 
 NFTinder is a project that helps users discover and save their favorite NFTs. It is built using React and Framer Motion libraries.
 
+![image](https://github.com/gutshotexist/nftinder/assets/54411516/bf447d5b-ba16-460e-ade5-cb7eb67d9d7a)
+
+
 ## Features
 
 - Swipe left or right to view different NFTs
