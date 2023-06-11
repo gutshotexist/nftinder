@@ -7,7 +7,6 @@ NFTinder is a project that helps users discover and save their favorite NFTs. It
 - Swipe left or right to view different NFTs
 - Save your favorite NFTs to a favorites list
 - View details for each NFT, including name, price, volume, collection name, and image
-- Click on the collection name to view the collection on Element Market
 
 ## Installation
 
@@ -17,7 +16,7 @@ NFTinder is a project that helps users discover and save their favorite NFTs. It
 
 ## Usage
 
-To use the app, simply swipe left or right to view different NFTs. Click the heart icon to add an NFT to your favorites list. Click the collection name to view the collection on Element Market.
+To use the app, simply swipe left or right to view different NFTs. Click the heart icon to add an NFT to your favorites list.
 
 ## Contributing
 
@@ -32,4 +31,3 @@ Contributions to this project are welcome. To contribute:
 ## Credits
 
 This project was built using tools such as Nextjs, TailwindCSS, React, and Framer Motion.
-
