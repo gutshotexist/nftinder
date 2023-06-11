@@ -10,6 +10,8 @@ import logo from "../public/logo.png";
 const Navbar = () => {
   const [timerActive, setTimerActive] = useState(false);
   const [lastRewardTime, setLastRewardTime] = useState(null);
+  const [showQuestModal, setShowQuestModal] = useState(false);
+  const [currentStreak, setCurrentStreak] = useState(4); // Replace 4 with a variable that holds the user's current streak
 
   // Load last reward time from storage on initial render
   useEffect(() => {
@@ -118,52 +120,113 @@ const Navbar = () => {
         console.log("24 hours have passed!");
         setTimerActive(false);
       }, 24 * 60 * 60 * 1000);
+
+      // Increment the user's streak
+      setCurrentStreak((prevStreak) => prevStreak + 1);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleQuestModalClose = () => {
+    setShowQuestModal(false);
+  };
+
+  const handleQuestButtonClick = () => {
+    setShowQuestModal(true);
+  };
+
   return (
-    <div className="bg-white-100 px-4 py-2 flex justify-between items-center fixed top-0 left-0 right-0">
-      <div className="logo">
-        <Link href="/">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={300}
-            height={50}
-            className="cursor-pointer"
-          />
-        </Link>
+    <>
+      <div className="bg-white-100 px-4 py-2 flex justify-between items-center fixed top-0 left-0 right-0">
+        <div className="logo">
+          <Link href="/">
+            <Image
+              src={logo}
+              alt="Logo"
+              width={300}
+              height={50}
+              className="cursor-pointer"
+            />
+          </Link>
+        </div>
+        <div className="flex items-center">
+          <motion.button
+            className="rounded-xl py-2 px-4 bg-blue-500 text-white font-bold mr-4"
+            style={{ minWidth: "120px", textAlign: "center" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleFavoritesClick}
+          >
+            My favorites
+          </motion.button>
+          <motion.button
+            className="rounded-xl py-2 px-4 font-bold bg-blue-500 hover:bg-blue-600 text-white mr-4"
+            style={{ minWidth: "120px", textAlign: "center" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleQuestButtonClick}
+          >
+            Daily Quest
+          </motion.button>
+          <ConnectButton />
+        </div>
       </div>
-      <div className="flex items-center">
-        <motion.button
-          className="rounded-xl py-2 px-4 bg-blue-500 text-white font-bold mr-4"
-          style={{ minWidth: "120px", textAlign: "center" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={handleFavoritesClick}
-        >
-          My favorites
-        </motion.button>
-        <motion.button
-          className={`rounded-xl py-2 px-4 font-bold ${
-            timerActive
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600"
-          } text-white mr-4`}
-          style={{ minWidth: "120px", textAlign: "center" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={handleDailyQuestClick}
-          disabled={timerActive}
-        >
-          {timerActive ? "Next reward available in 24 hours" : "Daily Quest"}
-        </motion.button>
-        <ConnectButton />
-      </div>
-    </div>
+      {showQuestModal && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 z-20 flex justify-center items-center bg-black bg-opacity-75">
+          <div className="relative bg-white rounded-lg w-96 p-6">
+            <button
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-800"
+              onClick={handleQuestModalClose}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-6 w-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M15.707 4.293a1 1 0 00-1.414 0L10 8.586 5.707 4.293a1 1 0 00-1.414 1.414L8.586 10l-4.293 4.293a1 1 0 101.414 1.414L10 11.414l4.293 4.293a1 1 0 001.414-1.414L11.414 10l4.293-4.293a1 1 0 000-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            <h2 className="text-2xl font-bold mb-4">Daily Quest</h2>
+            <p className="mb-4">
+              🎉 Welcome to the Daily Quest! 🌟
+              <br />
+              <br />
+              Sign a transaction every day for 5 consecutive days and receive a
+              special NFT as a reward. 🔥
+              <br />
+              <br />
+              Your current streak is displayed in the Daily Quest interface. ⚡️
+              <br />
+              <br />
+              Click on the 'Sign for Streak' button to sign today's transaction
+              and keep your streak going. 💪
+              <br />
+              <br />
+              Remember, you can only sign one transaction per day, so make sure
+              to come back tomorrow to continue your streak! 📆
+              <br />
+              <br />
+            </p>
+            <p className="mb-4">Your current streak is: {currentStreak}</p>
+            <motion.button
+              className="rounded-xl py-2 px-4 font-bold bg-blue-500 text-white mr-4"
+              style={{ minWidth: "120px", textAlign: "center" }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleDailyQuestClick}
+            >
+              Sign for Streak
+            </motion.button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
-
 export default Navbar;
