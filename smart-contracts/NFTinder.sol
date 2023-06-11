@@ -61,8 +61,6 @@ contract NFTinderCollection is ERC721Enumerable, ERC721Burnable, Ownable {
 
 }
 
-// import "./NFTDToken.sol";
-// import "./NFTinderCollection.sol"; - перенести в другие файлы? деплоить отдельно?
 
 contract NFTDProtocol {
     NFTinderCollection public nft;
@@ -73,41 +71,32 @@ contract NFTDProtocol {
     //uint public constant    REWARDS_TIMEOUT = 1 days;
     uint public constant    DAYS_TO_NFT_REWARD = 5;
 
-    event DailyQuest (address indexed user, uint daysLeft, string message);
+    event DailyQuest (address indexed user, uint dayStreak, string message);
     event RewardNFT (address indexed user, string uri, string message);
 
     constructor(string memory _baseURI, uint _maxSupply) {
         nft = new NFTinderCollection(_baseURI,_maxSupply);
     }
 
-    function acquireReward () external returns (uint) {
-        require(block.timestamp - userStats[msg.sender]["lastReward"] >= REWARDS_TIMEOUT, "You can receive the reward only once a day");
-
+    function acquireReward () external  {
         if (userStats[msg.sender]["dayStreak"] < DAYS_TO_NFT_REWARD) {
+            require(block.timestamp - userStats[msg.sender]["lastReward"] >= REWARDS_TIMEOUT, "You can participate in the quest only once a day");
             userStats[msg.sender]["lastReward"] = block.timestamp;
             userStats[msg.sender]["dayStreak"]++;
-            uint256 daysLeft = DAYS_TO_NFT_REWARD - userStats[msg.sender]["dayStreak"];
-            emit DailyQuest(msg.sender, daysLeft, " days left to receive the reward");
-            return daysLeft;
+            emit DailyQuest(msg.sender, userStats[msg.sender]["dayStreak"], " days out of 5 to receive the reward");
         } else {
             require(nftId < nft.maxSupply(), "All NFTs are minted");
+            require(userStats[msg.sender]["dayStreak"] == DAYS_TO_NFT_REWARD, "You have already received the reward");
             userStats[msg.sender]["lastReward"] = block.timestamp;
             nft.safeMint(msg.sender, nftId);
-            string memory uri = nft.tokenURI(nftId);
             nftId++;
             userStats[msg.sender]["dayStreak"] = 0;
-            emit RewardNFT(msg.sender, uri, "You received a reward for activity");
-            return userStats[msg.sender]["dayStreak"];
+            emit RewardNFT(msg.sender, nft.tokenURI(nftId), "You received a reward for activity");
         }
     }
 
-    //test functions - delete later
     function getDayStreak(address _user) external view returns (uint) {
         return userStats[_user]["dayStreak"];
-    }
-
-    function getLastReward(address _user) external view returns (uint) {
-        return userStats[_user]["lastReward"];
     }
 
 }
