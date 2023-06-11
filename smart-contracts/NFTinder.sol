@@ -54,6 +54,11 @@ contract NFTinderCollection is ERC721Enumerable, ERC721Burnable, Ownable {
         return super.supportsInterface(interfaceId);
     }
 
+    //setter for maxSupply
+    function setMaxSupply(uint _maxSupply) external onlyOwner {
+        maxSupply = _maxSupply;
+    }
+
 }
 
 // import "./NFTDToken.sol";
@@ -105,13 +110,5 @@ contract NFTDProtocol {
         return userStats[_user]["lastReward"];
     }
 
-    function getNFTId() external view returns (uint) {
-        return nftId;
-    }
-
-    //get nft balance of user
-    function getNFTBalance(address _user) external view returns (uint) {
-        return nft.balanceOf(_user);
-    }
 }
 
