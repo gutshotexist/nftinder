@@ -12,7 +12,7 @@ contract NFTinderCollection is ERC721Enumerable, ERC721Burnable, Ownable {
     uint256 public         maxSupply;
     string public          baseURI;// = "ipfs://QmbeT7zTp5nFbg4BzZJMKT1Ck71MxxXix4oBTr7GzRWKL6/"; donuts collection
 
-    constructor(string memory _baseURI, uint _maxSupply) ERC721("NFTinder Collection", "NFTD") {
+    constructor(string memory _baseURI, uint _maxSupply) ERC721("NFTinder Collection", "NFTC") {
         baseURI = _baseURI;
         maxSupply = _maxSupply;   
     }
@@ -32,7 +32,7 @@ contract NFTinderCollection is ERC721Enumerable, ERC721Burnable, Ownable {
 
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {
-        require(tokenId<=maxSupply);
+        //require(tokenId<=maxSupply);
         _safeMint(to, tokenId);
     }
 
@@ -63,12 +63,12 @@ contract NFTinderCollection is ERC721Enumerable, ERC721Burnable, Ownable {
 
 
 contract NFTDProtocol {
-    NFTinderCollection public nft;
-    uint                      nftId = 0;
+    NFTinderCollection public                   nft;
+    uint256                                     nftId = 0;
     mapping(address => mapping(string => uint)) userStats;
 
-    uint public constant    REWARDS_TIMEOUT = 1 seconds; //- for test
-    //uint public constant    REWARDS_TIMEOUT = 1 days;
+    //uint public constant    REWARDS_TIMEOUT = 1 seconds; //- for test
+    uint public constant    REWARDS_TIMEOUT = 1 days;
     uint public constant    DAYS_TO_NFT_REWARD = 5;
 
     event DailyQuest (address indexed user, uint dayStreak, string message);
@@ -89,9 +89,9 @@ contract NFTDProtocol {
             require(userStats[msg.sender]["dayStreak"] == DAYS_TO_NFT_REWARD, "You have already received the reward");
             userStats[msg.sender]["lastReward"] = block.timestamp;
             nft.safeMint(msg.sender, nftId);
+            emit RewardNFT(msg.sender, nft.tokenURI(nftId), "You received a reward for activity");
             nftId++;
             userStats[msg.sender]["dayStreak"] = 0;
-            emit RewardNFT(msg.sender, nft.tokenURI(nftId), "You received a reward for activity");
         }
     }
 
