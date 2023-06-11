@@ -87,7 +87,7 @@ const Favorites = () => {
                   </button>
 
                   <a
-                    href={`https://element.market/collections/${favorite.collectionName}`}
+                    href={favorite.urlLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-3 bg-gray-900 text-white rounded-full text-xs uppercase tracking-wide font-semibold ml-4"

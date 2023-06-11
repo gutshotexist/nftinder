@@ -286,8 +286,8 @@ const Navbar = () => {
               Your current streak is displayed in the Daily Quest interface. ⚡️
               <br />
               <br />
-              Click on the 'Sign for Streak' button to sign today's transaction
-              and keep your streak going. 💪
+              Click on the &apos;Sign for Streak&apos; button to sign
+              today&apos;s transaction and keep your streak going. 💪
               <br />
               <br />
               Remember, you can only sign one transaction per day, so make sure
