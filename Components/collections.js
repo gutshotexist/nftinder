@@ -1,33 +1,33 @@
 export const collections = [
   {
-    name: "ESG Panda",
-    price: "0.359",
-    volume: "235",
-    collectionName: "esg-panda",
+    name: "FREZIVIA",
+    price: "0.208",
+    volume: "13",
+    urlLink: "https://market.roboworld.io/listing/",
     image:
-      "https://i.nfte.ai/ia/l201/578480/2879308866937818202_922507353.avif",
+      "https://copper-concerned-mollusk-678.mypinata.cloud/ipfs/QmQCEqC6C54NDRg5iTSnxiV7SDY75PFnMRGJNK4mfSX3Pp",
   },
   {
-    name: "Yuliverse NFT",
-    price: "0,12",
-    volume: "5,705",
-    collectionName: "yuliversenft",
+    name: "CHILOPODA",
+    price: "0.104",
+    volume: "13",
+    urlLink: "https://market.roboworld.io/listing/",
     image:
-      "https://i.nfte.ai/ia/l201/62976/6684378745783283820_1901292868.avif",
+      "https://copper-concerned-mollusk-678.mypinata.cloud/ipfs/QmUxYNw7xBpW9NULcspBbvL6J3VqZjW9LnqbzpngHxkTWG",
   },
   {
-    name: "Origines Citizen 82e49d",
-    price: "1.66",
-    volume: "158",
-    collectionName: "origines-citizen-82e49d",
-    image:
-      "https://i.nfte.ai/ia/l201/422197/4646285471756277981_1104381657.avif",
+    name: "COBI #10000",
+    price: "0.3",
+    volume: "35",
+    urlLink: "https://bullieverse.com/marketplace",
+    image: "https://bullieverassets.s3.amazonaws.com/bull600/10000.webp",
   },
   {
-    name: "Radio Caca",
-    price: "0.0004",
-    volume: "30",
-    collectionName: "Radio-Caca",
-    image: "https://i.nfte.ai/ia/m201/12718/7013187559098604490.avif",
+    name: "BEAR #1002",
+    price: "0.8",
+    volume: "121",
+    urlLink:
+      "https://bullieverse.com/marketplace/ERC721/0x519fb7ee9c0b6b1c4ebac7a5b480337a9a0976b7/1002",
+    image: "https://bullieverassets.s3.amazonaws.com/bears600/1002.webp",
   },
 ];

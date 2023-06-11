@@ -26,9 +26,7 @@ const IndexPage = () => {
     setCurrentUserIndex(previousIndex);
   };
 
-  const { name, price, volume, collectionName, image } =
-    collections[currentUserIndex];
-  const urlLink = `https://element.market/collections/${collectionName}`;
+  const { name, price, volume, urlLink, image } = collections[currentUserIndex];
 
   return (
     <div className="h-screen flex justify-center items-center">
@@ -36,9 +34,9 @@ const IndexPage = () => {
         <Card
           key={name}
           name={name}
-          price={`floor price: ${price} BNB`}
-          volume={`Volume: ${volume} BNB`}
-          collectionName={<a href={urlLink}>{collectionName}</a>}
+          price={`floor price: ${price} ETH`}
+          volume={`Volume: ${volume} ETH`}
+          collectionName={<a href={urlLink}>Buy now</a>}
           image={image}
           onPrevClick={handlePrevClick}
           onNopeClick={handleNopeClick}
@@ -46,7 +44,7 @@ const IndexPage = () => {
           collection={collections[currentUserIndex]}
           favorites={favorites}
           setFavorites={setFavorites}
-        />
+        ></Card>
       </div>
     </div>
   );

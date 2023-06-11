@@ -1,5 +1,5 @@
-import IndexPage from "@/components/IndexPage";
-import NavigationBar from "@/components/navigationbar";
+import IndexPage from "../components/IndexPage";
+import NavigationBar from "../Components/navigationbar";
 
 export default function Home() {
   return (

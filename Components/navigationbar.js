@@ -11,7 +11,7 @@ const Navbar = () => {
   const [timerActive, setTimerActive] = useState(false);
   const [lastRewardTime, setLastRewardTime] = useState(null);
   const [showQuestModal, setShowQuestModal] = useState(false);
-  const [currentStreak, setCurrentStreak] = useState(4); // Replace 4 with a variable that holds the user's current streak
+  const [currentStreak, setCurrentStreak] = useState(0);
 
   // Load last reward time from storage on initial render
   useEffect(() => {
@@ -45,8 +45,13 @@ const Navbar = () => {
       {
         inputs: [
           {
+            internalType: "string",
+            name: "_baseURI",
+            type: "string",
+          },
+          {
             internalType: "uint256",
-            name: "_premint",
+            name: "_maxSupply",
             type: "uint256",
           },
         ],
@@ -54,8 +59,103 @@ const Navbar = () => {
         type: "constructor",
       },
       {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "user",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "uint256",
+            name: "dayStreak",
+            type: "uint256",
+          },
+          {
+            indexed: false,
+            internalType: "string",
+            name: "message",
+            type: "string",
+          },
+        ],
+        name: "DailyQuest",
+        type: "event",
+      },
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: true,
+            internalType: "address",
+            name: "user",
+            type: "address",
+          },
+          {
+            indexed: false,
+            internalType: "string",
+            name: "uri",
+            type: "string",
+          },
+          {
+            indexed: false,
+            internalType: "string",
+            name: "message",
+            type: "string",
+          },
+        ],
+        name: "RewardNFT",
+        type: "event",
+      },
+      {
         inputs: [],
-        name: "REWARDS_AMOUNT",
+        name: "DAYS_TO_NFT_REWARD",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "address",
+            name: "_user",
+            type: "address",
+          },
+        ],
+        name: "getDayStreak",
+        outputs: [
+          {
+            internalType: "uint256",
+            name: "",
+            type: "uint256",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "nft",
+        outputs: [
+          {
+            internalType: "contract NFTinderCollection",
+            name: "",
+            type: "address",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "nftBalance",
         outputs: [
           {
             internalType: "uint256",
@@ -79,33 +179,18 @@ const Navbar = () => {
         stateMutability: "view",
         type: "function",
       },
-      {
-        inputs: [],
-        name: "token",
-        outputs: [
-          {
-            internalType: "contract NFTDToken",
-            name: "",
-            type: "address",
-          },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
     ];
-    const Address = "0xDD2D6aEfD63c095BE1DF4F1A6cB0F25D5F8F04F9";
-    if (timerActive) {
-      console.log(
-        "You already acquired a reward. Please wait for 24 hours before trying again."
-      );
-      return;
-    }
+    const Address = "0x17f7Ae5195De9149AA430576715a296a33a30756";
     try {
       await window.ethereum.enable();
-      window.web3 = new Web3(window.ethereum);
-      window.contract = new window.web3.eth.Contract(ABI, Address);
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(ABI, Address);
+      const currentStreak = await contract.methods
+        .getDayStreak(window.ethereum.selectedAddress)
+        .call();
+      setCurrentStreak(currentStreak);
 
-      await window.contract.methods
+      await contract.methods
         .acquireReward()
         .send({ from: window.ethereum.selectedAddress });
 
@@ -120,9 +205,6 @@ const Navbar = () => {
         console.log("24 hours have passed!");
         setTimerActive(false);
       }, 24 * 60 * 60 * 1000);
-
-      // Increment the user's streak
-      setCurrentStreak((prevStreak) => prevStreak + 1);
     } catch (error) {
       console.error(error);
     }
